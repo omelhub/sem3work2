@@ -1,0 +1,51 @@
+﻿using Model2;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataAccessLayer;
+
+public class EntityRepository<T> : IRepository<T> where T : class, IDomainObject
+{
+    StudentContext context = new();
+
+    public IEnumerable<T> GetAll()
+    {
+        return context.Set<T>(); //.ToList()
+    }
+
+    public T GetById(int id)
+    {
+        return context.Set<T>().Find(id);
+    }
+
+    public void Create(T obj)
+    {
+        context.Set<T>().Add(obj);
+    }
+
+    public void Delete(int id)
+    {
+        //T item = context.Set<T>().Find(id);
+        //if (item != null)
+        //    context.Set<T>().Remove(item);
+        Student item = context.students.Find(id);
+        context.students.Remove(item);
+        //if (item != null)
+
+    }
+
+    //public void DeleteAll()
+    //{
+    //    context.Set<T>().RemoveRange(context.Set<T>());
+    //}
+
+    public void Save()
+    {
+        context.SaveChanges();
+    }
+}
+
