@@ -41,9 +41,10 @@ while (x)
         case ConsoleKey.Escape:
             x = false;
             break;
-            //case ConsoleKey.D5:
-            //    logic.DeleteStudent();
-            //    break;
+
+        case ConsoleKey.D5:
+            logic.DeleteStudent(); //удаление всех студентов
+            break;
     }
     Console.WriteLine();
 }
@@ -58,7 +59,7 @@ void AddStudentCommand()
 void DeleteStudentCommand()
 {
     Console.WriteLine("\nВведите индекс студента:");
-    if ((Int32.TryParse(Console.ReadLine(), out int result)) && result > 0)
+    if ((Int32.TryParse(Console.ReadLine(), out int result)) && result > 0 && (logic.GetAll().ToList().Exists(x => x.Id == result)))
         logic.DeleteStudent(result);
     else
         Console.WriteLine("Индекс введен неправильно.");
@@ -67,9 +68,8 @@ void DeleteStudentCommand()
 void ShowStudentsCommand()
 {
     Console.WriteLine($"\n\n{"Имя",-30} {"| Специальность",-30} {"| Группа",-20} {"| Id",-20}");
-    Console.WriteLine(new string('-', 80));
-    //List<Student>
-    var allStudents = logic.GetAll();
+    Console.WriteLine(new string('-', 100));
+    List<Student> allStudents = logic.GetAll().ToList();
     foreach (Student student in allStudents)
     {
         Console.WriteLine($"{student.Name,-30} {student.Speciality,-30} {student.Group,-20} {student.Id,-20}");

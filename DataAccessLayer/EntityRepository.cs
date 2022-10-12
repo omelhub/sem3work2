@@ -14,7 +14,7 @@ public class EntityRepository<T> : IRepository<T> where T : class, IDomainObject
 
     public IEnumerable<T> GetAll()
     {
-        return context.Set<T>(); //.ToList()
+        return context.Set<T>().ToList();
     }
 
     public T GetById(int id)
@@ -29,19 +29,15 @@ public class EntityRepository<T> : IRepository<T> where T : class, IDomainObject
 
     public void Delete(int id)
     {
-        //T item = context.Set<T>().Find(id);
-        //if (item != null)
-        //    context.Set<T>().Remove(item);
-        Student item = context.students.Find(id);
-        context.students.Remove(item);
-        //if (item != null)
-
+        T item = context.Set<T>().Find(id);
+        if (item != null)
+            context.Set<T>().Remove(item);
     }
 
-    //public void DeleteAll()
-    //{
-    //    context.Set<T>().RemoveRange(context.Set<T>());
-    //}
+    public void DeleteAll()
+    {
+        context.Set<T>().RemoveRange(context.Set<T>());
+    }
 
     public void Save()
     {

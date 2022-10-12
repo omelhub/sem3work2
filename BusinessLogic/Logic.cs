@@ -23,23 +23,22 @@ public class Logic
     /// </summary>
     public void DeleteStudent(int index)
     {
-        if (repository.GetAll().Count() > index)
-        {
-            repository.Delete(index);
-        }
+        repository.Delete(index);
+        repository.Save();
     }
 
-    //public void DeleteStudent()
-    //{
-    //    repository.DeleteAll();
-    //}
+    public void DeleteStudent()
+    {
+        repository.DeleteAll();
+        repository.Save();
+    }
 
     /// <summary>
     /// Вывести весь список студентов.
     /// </summary>
-    public System.Collections.IEnumerable GetAll() //List<Student>
+    public List<Student> GetAll()
     {
-        return repository.GetAll(); //(List<Student>)
+        return repository.GetAll().ToList();
     }
 
     public Dictionary<string, int> DistributionOfSpecialties()

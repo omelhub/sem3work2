@@ -22,7 +22,7 @@ internal class DapperRepository<T> : IRepository<T> where T : class, IDomainObje
 
     public T GetById(int id)
     {
-        throw new NotImplementedException();
+        return db.Query<T>("SELECT * FROM Students WHERE Id = @id", new { id }).FirstOrDefault();
     }
 
     public void Create(T obj)
@@ -34,12 +34,16 @@ internal class DapperRepository<T> : IRepository<T> where T : class, IDomainObje
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        using (IDbConnection db = new SqlConnection(connectionString))
+        {
+            var sqlQuery = "DELETE FROM Users WHERE Id = @id";
+            db.Execute(sqlQuery, new { id });
+        }
     }
 
     public void Save()
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException(); //надо ли?
     }
 }
 

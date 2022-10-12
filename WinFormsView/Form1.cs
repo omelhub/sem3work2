@@ -1,5 +1,5 @@
 using BusinessLogic;
-using Model;
+using Model2;
 using WinFormsView;
 namespace WinFormsView;
 
@@ -11,12 +11,12 @@ public partial class Form1 : Form
         logic = new Logic();
 
         //тестовый список студентов
-        logic.students.Add(new Student() { Name = "Иванов", Speciality = "Информатика", Group = "КИ21-21Б" });
-        logic.students.Add(new Student() { Name = "Петров", Speciality = "Информатика", Group = "КИ21-21Б" });
-        logic.students.Add(new Student() { Name = "Сидоров", Speciality = "Информатика", Group = "КИ21-21Б" });
-        logic.students.Add(new Student() { Name = "Лагойда", Speciality = "Информатика", Group = "КИ21-21Б" });
-        logic.students.Add(new Student() { Name = "Машкова", Speciality = "Биология", Group = "КИ21-01А" });
-        logic.students.Add(new Student() { Name = "Викторова", Speciality = "Биология", Group = "КИ21-02А" });
+        logic.AddStudent("Иванов", "Информатика", "КИ21-18Б");
+        logic.AddStudent("Петров", "Информатика", "КИ21-21Б");
+        logic.AddStudent("Сидоров", "Информатика", "КИ21-21Б");
+        logic.AddStudent("Лагойда", "Информатика", "КИ21-21Б");
+        logic.AddStudent("Машкова", "Биология", "КИ21-01А");
+        logic.AddStudent("Викторова", "Биология", "КИ21-02А");
     }
 
     public Logic logic;
