@@ -7,12 +7,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace DataAccessLayer;
-
-internal class DapperRepository<T> : IRepository<T> where T : class, IDomainObject
+public class DapperRepository<T> : IRepository<T> where T : class, IDomainObject
 {
-    static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DbConnection;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DbConnection;Integrated Security=True;" +
+        "Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
     IDbConnection db = new SqlConnection(connectionString);
 
     public IEnumerable<T> GetAll()
@@ -36,14 +37,26 @@ internal class DapperRepository<T> : IRepository<T> where T : class, IDomainObje
     {
         using (IDbConnection db = new SqlConnection(connectionString))
         {
-            var sqlQuery = "DELETE FROM Users WHERE Id = @id";
+            var sqlQuery = "DELETE FROM Students WHERE Id = @id";
             db.Execute(sqlQuery, new { id });
         }
     }
-
-    public void Save()
+    /// <summary>
+    /// удаляет всех студентов и сбрасывает счётчик id
+    /// </summary>
+    public void DeleteAll()
     {
-        throw new NotImplementedException(); //надо ли?
+        using (IDbConnection db = new SqlConnection(connectionString))
+        {
+            var sqlQuery = "TRUNCATE TABLE Students";
+            db.Execute(sqlQuery, new { });
+
+
+            //DBCC CHECKIDENT ('имя_таблицы', RESEED, новое_стартовое_значение) - сбрасывает значение счетчика в указанное значение.
+            //Способ подходит когда вы выкидываете часть таблицы и хотите чтобы поле счетчика не имело провалов.
+        }
     }
+
+    public void Save() { }
 }
 

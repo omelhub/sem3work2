@@ -11,12 +11,12 @@ public partial class Form1 : Form
         logic = new Logic();
 
         //тестовый список студентов
-        logic.AddStudent("Иванов", "Информатика", "КИ21-18Б");
-        logic.AddStudent("Петров", "Информатика", "КИ21-21Б");
-        logic.AddStudent("Сидоров", "Информатика", "КИ21-21Б");
-        logic.AddStudent("Лагойда", "Информатика", "КИ21-21Б");
-        logic.AddStudent("Машкова", "Биология", "КИ21-01А");
-        logic.AddStudent("Викторова", "Биология", "КИ21-02А");
+        //logic.AddStudent("Иванов", "Информатика", "КИ21-18Б");
+        //logic.AddStudent("Петров", "Информатика", "КИ21-21Б");
+        //logic.AddStudent("Сидоров", "Информатика", "КИ21-21Б");
+        //logic.AddStudent("Лагойда", "Информатика", "КИ21-21Б");
+        //logic.AddStudent("Машкова", "Биология", "КИ21-01А");
+        //logic.AddStudent("Викторова", "Биология", "КИ21-02А");
     }
 
     public Logic logic;
@@ -71,8 +71,6 @@ public partial class Form1 : Form
 
     private void buttonDelete_Click(object sender, EventArgs e)
     {
-
-
         if (listView1.SelectedIndices.Count != 0)
         {
             //foreach(int index in listView1.SelectedIndices)
@@ -80,7 +78,7 @@ public partial class Form1 : Form
             //    logic.DeleteStudent(index)
             //} //код, который можно было бы использовать, если бы был включен multiselection
 
-            logic.DeleteStudent(listView1.SelectedIndices[0]);
+            logic.DeleteStudent(logic.GetAll().ElementAt(listView1.SelectedIndices[0]).Id);
 
             RefreshListView();
             RefreshGraph();

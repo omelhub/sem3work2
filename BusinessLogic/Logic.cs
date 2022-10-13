@@ -6,30 +6,33 @@ namespace BusinessLogic;
 
 public class Logic
 {
-    EntityRepository<Student> repository = new();
-    //DapperRepository<Student> repository = new();
+    //EntityRepository<Student> repository = new();
+    DapperRepository<Student> repository = new();
 
     /// <summary>
     /// Добавить нового студента.
     /// </summary>
     public void AddStudent(string name, string speciality, string group)
     {
-        repository.Create(new Student { Name = name, Speciality = speciality, Group = group });
-        repository.Save();
+        if(!string.IsNullOrEmpty(name) | !string.IsNullOrEmpty(speciality) | !string.IsNullOrEmpty(group))
+        {
+            repository.Create(new Student { Name = name, Speciality = speciality, Group = group });
+            repository.Save();
+        }
     }
 
     /// <summary>
-    /// Удалить студента по индексу.
+    /// Удалить студента по идентификатору.
     /// </summary>
-    public void DeleteStudent(int index)
+    public void DeleteStudent(int id)
     {
-        repository.Delete(index);
+        repository.Delete(id);
         repository.Save();
     }
 
     public void DeleteStudent()
     {
-        repository.DeleteAll();
+        repository.DeleteAll();//смотри описание метода
         repository.Save();
     }
 
@@ -40,6 +43,7 @@ public class Logic
     {
         return repository.GetAll().ToList();
     }
+
 
     public Dictionary<string, int> DistributionOfSpecialties()
     {

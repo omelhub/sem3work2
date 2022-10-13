@@ -7,6 +7,6 @@ namespace DataAccessLayer;
 public class StudentContext : DbContext
 {
     public StudentContext() : base("DBConnection") { }
-
+    
     public DbSet<Student>? students { get; set; }
 }

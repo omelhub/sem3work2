@@ -16,7 +16,7 @@ static void Commands()
 {
     Console.WriteLine("Список команд:");
     Console.WriteLine(" 1  - добавить студента,");
-    Console.WriteLine(" 2  - удалить студента по индексу,");
+    Console.WriteLine(" 2  - удалить студента по идентификатору,");
     Console.WriteLine(" 3  - вывести список студентов,");
     Console.WriteLine("Esc - выйти.");
 }
@@ -42,6 +42,7 @@ while (x)
             x = false;
             break;
 
+
         case ConsoleKey.D5:
             logic.DeleteStudent(); //удаление всех студентов
             break;
@@ -53,7 +54,8 @@ void AddStudentCommand()
 {
     Console.WriteLine("\nВведите Имя Специальность Группу студента через пробел:");
     string[] NewStudent = Console.ReadLine().Split();
-    logic.AddStudent(NewStudent[0], NewStudent[1], NewStudent[2]);
+    if (NewStudent.Length == 3)
+        logic.AddStudent(NewStudent[0], NewStudent[1], NewStudent[2]);
 }
 
 void DeleteStudentCommand()
